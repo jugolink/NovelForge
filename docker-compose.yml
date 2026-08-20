@@ -7,8 +7,6 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: novelforge-backend
-    ports:
-      - "20489:20489"
     volumes:
       - novelforge-data:/app/data
     environment:
