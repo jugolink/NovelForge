@@ -13,7 +13,7 @@ RUN npm install --ignore-scripts
 COPY . .
 
 # Build the web assets (outputs to /app/dist-web as per vite config)
-RUN npm run build:web
+RUN npm run build:web --ignore-scripts
 
 # Stage 2: Serve the frontend with Nginx
 FROM nginx:alpine
