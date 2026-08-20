@@ -95,8 +95,8 @@ export const exportCardsForProject = async (projectId: number, data: CardExportR
   })
 
   const headers = response?.headers || {}
-  const disposition: string | undefined = headers['content-disposition'] || headers['Content-Disposition']
-  const contentType: string | null = headers['content-type'] || headers['Content-Type'] || null
+  const disposition = (headers['content-disposition'] || headers['Content-Disposition']) as string | undefined
+  const contentType = (headers['content-type'] || headers['Content-Type'] || null) as string | null
 
   return {
     blob: response.data,

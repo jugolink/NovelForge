@@ -1346,20 +1346,7 @@ async function saveParamEdit() {
 
 // 打开文件夹选择对话框
 async function openFolderDialog() {
-  try {
-    const result = await window.electron.ipcRenderer.invoke('dialog:openDirectory')
-    if (result && !result.canceled && result.filePaths.length > 0) {
-      if (editingParam.value) {
-        const path = result.filePaths[0]
-        // 转义 Windows 路径反斜杠
-        editingParam.value.value = path.replace(/\\/g, '\\\\')
-        // 自动保存
-        saveParamEdit()
-      }
-    }
-  } catch (e) {
-    console.error('Failed to open directory dialog:', e)
-  }
+  ElMessage.warning('Web 环境下不支持直接选择本地文件夹，请手动输入目标路径。')
 }
 
 // 显示可用参数（当节点没有参数时）
