@@ -94,6 +94,10 @@ export default defineConfig({
     outDir: '../../dist',
     emptyOutDir: true,
     rollupOptions: {
+      external: [
+        /workbox-routing/,
+        /workbox-window/
+      ],
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
