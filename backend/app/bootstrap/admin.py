@@ -6,7 +6,7 @@ from app.bootstrap.registry import initializer
 from app.db.models import User
 from app.core import security
 
-@initializer(order=5)  # Make sure it runs early enough
+@initializer(name="系统管理员", order=5)  # Make sure it runs early enough
 def init_default_admin(session: Session) -> None:
     """初始化默认管理员账号"""
     logger.info("[Bootstrap] 检查系统用户...")
