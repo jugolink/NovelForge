@@ -28,6 +28,9 @@ export default defineConfig({
       devOptions: {
         enabled: true
       },
+      workbox: {
+        maximumFileSizeToCacheInBytes: 20 * 1024 * 1024 // 20 MB limit to allow caching element-plus chunk
+      },
       manifest: {
         name: 'Novel Forge',
         short_name: 'NovelForge',
