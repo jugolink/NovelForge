@@ -6,18 +6,7 @@ import { ElMessage, ElLoading } from 'element-plus'
 //  - web 开发环境：使用同源 + Vite 代理（BASE_URL = ''，请求走 /api 前缀）
 //  - web 生产环境：使用当前 hostname:20489
 //  - Electron / 其他：默认 http://127.0.0.1:20489
-export const BASE_URL: string = (() => {
-  const platform = import.meta.env.VITE_APP_PLATFORM
-
-  if (platform === 'web') {
-    // 无论是本地开发（Vite 代理）还是生产环境（Nginx 代理），都统一使用相对路径，
-    // 让请求发往 /api，由代理服务器负责将其转发给后端的 20489 端口。
-    return ''
-  }
-
-  // Electron 等非 web 场景
-  return 'http://127.0.0.1:20489'
-})()
+export const BASE_URL: string = ''
 
 // 带 /api 前缀的基础 URL，供流式接口使用
 export const API_BASE_URL: string = BASE_URL
