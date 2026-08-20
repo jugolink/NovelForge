@@ -4,26 +4,26 @@ import { ElMessage, ElLoading } from 'element-plus'
 // 后端API的基础URL
 // 约定：
 //  - web 开发环境：使用同源 + Vite 代理（BASE_URL = ''，请求走 /api 前缀）
-//  - web 生产环境：使用当前 hostname:54321
-//  - Electron / 其他：默认 http://127.0.0.1:54321
+//  - web 生产环境：使用当前 hostname:20489
+//  - Electron / 其他：默认 http://127.0.0.1:20489
 export const BASE_URL: string = (() => {
   const platform = import.meta.env.VITE_APP_PLATFORM
 
   if (platform === 'web') {
     if (import.meta.env.DEV) {
-      // 开发模式走 Vite 代理：/api -> http://127.0.0.1:54321
+      // 开发模式走 Vite 代理：/api -> http://127.0.0.1:20489
       return ''
     }
     if (typeof window !== 'undefined') {
       const protocol = window.location.protocol || 'http:'
       const hostname = window.location.hostname || '127.0.0.1'
-      return `${protocol}//${hostname}:54321`
+      return `${protocol}//${hostname}:20489`
     }
     return ''
   }
 
   // Electron 等非 web 场景
-  return 'http://127.0.0.1:54321'
+  return 'http://127.0.0.1:20489'
 })()
 
 // 带 /api 前缀的基础 URL，供流式接口使用

@@ -48,7 +48,7 @@ function createWindow(): void {
           "default-src 'self'; " +
           "script-src 'self' 'wasm-unsafe-eval'; " +
           "style-src 'self' 'unsafe-inline'; " +
-          "connect-src 'self' http://127.0.0.1:54321 https://api.github.com"
+          "connect-src 'self' http://127.0.0.1:20489 https://api.github.com"
         ]
       }
     })
