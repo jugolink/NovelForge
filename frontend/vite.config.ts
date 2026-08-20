@@ -55,6 +55,20 @@ export default defineConfig({
   },
   build: {
     outDir: '../../dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('element-plus')) return 'element-plus';
+            if (id.includes('codemirror') || id.includes('@codemirror')) return 'codemirror';
+            if (id.includes('vue') || id.includes('pinia')) return 'vue-vendor';
+            if (id.includes('cytoscape')) return 'cytoscape';
+            if (id.includes('mermaid')) return 'mermaid';
+            return 'vendor'; // 其他所有依赖打入 vendor
+          }
+        }
+      }
+    }
   }
 })

@@ -148,9 +148,11 @@ class CardService:
 
     def get_all_for_project(self, project_id: int) -> List[Card]:
         # 获取该项目所有卡片，树形结构将在客户端构建。
+        from sqlalchemy.orm import selectinload
         statement = (
             select(Card)
             .where(Card.project_id == project_id)
+            .options(selectinload(Card.card_type))
             .order_by(Card.display_order)
         )
         cards = self.db.exec(statement).all()
