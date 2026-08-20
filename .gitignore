@@ -68,3 +68,5 @@ backend/build
 
 # Node modules
 node_modules/
+
+.codegraph
