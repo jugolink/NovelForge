@@ -1819,11 +1819,21 @@ function onSwitchRightTab(e: CustomEvent) {
 .sidebar {
   display: flex;
   flex-direction: column;
-  background-color: var(--el-fill-color-lighter); /* 适配暗黑模式 */
-  transition: width 0.2s;
+  background-color: var(--bg-color-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: width 0.2s, box-shadow 0.3s;
   flex-shrink: 0;
   overflow: hidden;
-  border-right: none; /* 移除边框 */
+  margin: 16px 8px; /* Give it margins around */
+  height: calc(100% - 32px); /* adjust height for margin */
+}
+
+.sidebar:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .card-navigation-sidebar {
@@ -1863,7 +1873,8 @@ function onSwitchRightTab(e: CustomEvent) {
 }
 
 .resizer {
-  width: 5px;
+  width: 8px; /* Slightly thicker for easier grabbing */
+  margin: 16px 0; /* Align with sidebar margin */
   background: transparent;
   cursor: col-resize;
   z-index: 10;
@@ -2007,12 +2018,11 @@ function onSwitchRightTab(e: CustomEvent) {
   min-width: 0;
 }
 .assistant-sidebar { 
-  border-left: none; 
-  background: transparent; 
+  background: var(--bg-color-glass);
   flex-shrink: 0; 
-  padding: 16px 8px 16px 0; /* 右侧留白 */
+  padding: 0;
 }
-.right-resizer { cursor: col-resize; width: 5px; background: transparent; }
+.right-resizer { cursor: col-resize; width: 8px; margin: 16px 0; background: transparent; }
 .right-resizer:hover { background: var(--el-color-primary-light-7); }
 .sidebar-edge-toggle {
   position: absolute;
