@@ -10,15 +10,8 @@ export const BASE_URL: string = (() => {
   const platform = import.meta.env.VITE_APP_PLATFORM
 
   if (platform === 'web') {
-    if (import.meta.env.DEV) {
-      // 开发模式走 Vite 代理：/api -> http://127.0.0.1:20489
-      return ''
-    }
-    if (typeof window !== 'undefined') {
-      const protocol = window.location.protocol || 'http:'
-      const hostname = window.location.hostname || '127.0.0.1'
-      return `${protocol}//${hostname}:20489`
-    }
+    // 无论是本地开发（Vite 代理）还是生产环境（Nginx 代理），都统一使用相对路径，
+    // 让请求发往 /api，由代理服务器负责将其转发给后端的 20489 端口。
     return ''
   }
 
