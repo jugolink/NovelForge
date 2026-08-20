@@ -1897,11 +1897,18 @@ function onSwitchRightTab(e: CustomEvent) {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background-color: var(--el-bg-color); /* 适配暗黑模式 */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
-  border-radius: 8px; /* 圆角 */
+  background: var(--bg-color-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
   overflow: hidden; /* 确保内容不溢出圆角 */
-  border: none; /* 移除默认边框 */
+  transition: box-shadow 0.3s;
+}
+
+.main-tabs:hover {
+  box-shadow: var(--shadow-md);
 }
 
 :deep(.el-tabs__content) {
@@ -2090,16 +2097,16 @@ function onSwitchRightTab(e: CustomEvent) {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--el-bg-color);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
 }
 .right-tabs :deep(.el-tabs__header) {
   margin: 0;
-  border-bottom: 1px solid var(--el-border-color-light);
+  border-bottom: 1px solid var(--border-color);
   padding: 12px 12px 0 12px;
-  background: var(--el-fill-color-lighter);
+  background: transparent;
 }
 .right-tabs :deep(.el-tabs__nav-wrap) {
   padding: 0;

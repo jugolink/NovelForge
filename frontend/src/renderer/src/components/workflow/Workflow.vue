@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="workflow-container">
     <!-- 顶部工具栏 -->
     <div class="workflow-toolbar">
@@ -1165,17 +1165,29 @@ const handleVisualRevisionChanged = (revision) => {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--el-bg-color-page);
+  background: transparent;
 }
 
 .workflow-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
-  background: var(--el-bg-color);
-  border-bottom: 1px solid var(--el-border-color);
-  box-shadow: 0 1px 4px var(--el-box-shadow-light);
+  padding: 12px 24px;
+  background: var(--bg-color-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--border-radius-md); /* Change from round to md */
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  margin: 16px 16px 8px 16px;
+  width: calc(100% - 32px);
+  position: relative;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.workflow-toolbar:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .toolbar-left,
@@ -1222,42 +1234,58 @@ const handleVisualRevisionChanged = (revision) => {
   flex: 1;
   overflow: hidden;
   gap: 0;
-  background: var(--el-border-color-lighter);
+  background: transparent;
   position: relative;
+  padding: 8px 16px 16px 16px;
+}
+
+.library-section,
+.editor-section,
+.notebook-section {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-color-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+
+.library-section:hover,
+.editor-section:hover,
+.notebook-section:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .library-section {
-  display: flex;
-  flex-direction: column;
-  background: var(--el-bg-color);
-  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.editor-section {
+  flex: 1;
+  min-width: 400px;
+}
+
+.notebook-section {
   flex-shrink: 0;
 }
 
 .resize-handle {
-  width: 4px;
-  background: var(--el-border-color-lighter);
+  width: 8px;
+  margin: 0 4px;
+  background: transparent;
   cursor: col-resize;
   flex-shrink: 0;
   position: relative;
   transition: background-color 0.2s;
 }
 
-.resize-handle:hover {
-  background: var(--el-color-primary);
-}
-
+.resize-handle:hover,
 .resize-handle:active {
-  background: var(--el-color-primary);
-}
-
-.editor-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: var(--el-bg-color);
-  overflow: hidden;
-  min-width: 400px;
+  background: var(--el-color-primary-light-7);
 }
 
 .property-section {
@@ -1266,14 +1294,6 @@ const handleVisualRevisionChanged = (revision) => {
   flex-direction: column;
   background: var(--el-bg-color);
   overflow: hidden;
-}
-
-.notebook-section {
-  display: flex;
-  flex-direction: column;
-  background: var(--el-bg-color);
-  overflow: hidden;
-  flex-shrink: 0;
 }
 
 .section-header {

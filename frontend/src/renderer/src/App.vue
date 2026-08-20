@@ -116,14 +116,15 @@ onBeforeUnmount(() => {
     <Header v-if="!isNoHeader" />
     <main class="main-content">
       <transition name="fade" mode="out-in">
-        <Dashboard v-if="currentView === 'dashboard'" @project-selected="handleProjectSelected" />
+        <Dashboard key="dashboard" v-if="currentView === 'dashboard'" @project-selected="handleProjectSelected" />
         <Editor
+          key="editor"
           v-else-if="currentView === 'editor' && currentProject"
           :initial-project="currentProject"
           @back-to-dashboard="handleBackToDashboard"
         />
-        <IdeasHome v-else-if="currentView === 'ideas'" />
-        <CodeWorkflowEditor v-else-if="currentView === 'workflows'" />
+        <IdeasHome key="ideas" v-else-if="currentView === 'ideas'" />
+        <CodeWorkflowEditor key="workflows" v-else-if="currentView === 'workflows'" />
       </transition>
     </main>
 

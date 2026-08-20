@@ -6,6 +6,7 @@ import PromptWorkshop from '../setting/PromptWorkshop.vue'
 import CardTypeManager from '../setting/CardTypeManager.vue'
 import KnowledgeManager from '../setting/KnowledgeManager.vue'
 import AssistantSettings from '../setting/AssistantSettings.vue'
+import PanelSettings from '../setting/PanelSettings.vue'
 import { useUpdateStore } from '@renderer/stores/useUpdateStore'
 
 const props = defineProps<{ modelValue: boolean }>()
@@ -62,6 +63,9 @@ watch(() => props.modelValue, async (open) => { if (open) { await nextTick(); em
         </el-tab-pane>
         <el-tab-pane label="Agent 设置" name="assistant">
           <AssistantSettings />
+        </el-tab-pane>
+        <el-tab-pane label="面板配置" name="panel">
+          <PanelSettings />
         </el-tab-pane>
         <el-tab-pane name="about">
           <template #label>

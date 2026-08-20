@@ -12,6 +12,14 @@ export const useAppStore = defineStore('app', () => {
   const settingsDialogVisible = ref(false)
   const settingsInitialTab = ref<string>('llm')
 
+  // 面板个性化配置
+  const defaultFontOptions = {
+    uiFont: '"Lora", "Noto Serif SC", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, serif',
+    editorFont: '"Lora", "Noto Serif SC", serif',
+    baseFontSize: 14
+  }
+  const panelConfig = ref({ ...defaultFontOptions })
+
   // 全局加载状态
   const globalLoading = ref(false)
 
@@ -73,10 +81,30 @@ export const useAppStore = defineStore('app', () => {
     }
   }
 
+  function applyPanelConfig() {
+    localStorage.setItem('panelConfig', JSON.stringify(panelConfig.value))
+    const html = document.documentElement
+    html.style.setProperty('--ui-font', panelConfig.value.uiFont)
+    html.style.setProperty('--editor-font', panelConfig.value.editorFont)
+    html.style.setProperty('--base-font-size', `${panelConfig.value.baseFontSize}px`)
+  }
+
   function initTheme() {
     const savedTheme = localStorage.getItem('theme')
     isDarkMode.value = savedTheme === 'dark'
     applyTheme()
+    
+    // 初始化面板配置
+    const savedConfig = localStorage.getItem('panelConfig')
+    if (savedConfig) {
+      try {
+        const parsed = JSON.parse(savedConfig)
+        panelConfig.value = { ...defaultFontOptions, ...parsed }
+      } catch (e) {
+        console.error('Failed to parse panel config', e)
+      }
+    }
+    applyPanelConfig()
   }
 
   function openSettings(tab?: string) {
@@ -115,6 +143,7 @@ export const useAppStore = defineStore('app', () => {
     settingsInitialTab,
     globalLoading,
     globalError,
+    panelConfig,
 
     // Computed
     isDashboard,
@@ -132,6 +161,7 @@ export const useAppStore = defineStore('app', () => {
     toggleTheme,
     setTheme,
     applyTheme,
+    applyPanelConfig,
     initTheme,
     openSettings,
     closeSettings,

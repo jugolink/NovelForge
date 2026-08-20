@@ -34,9 +34,8 @@ function handleLogoClick() {
 const isLogoClickable = computed(() => currentView.value !== 'dashboard')
 
 function openIdeasWorkbench() {
-  // 直接调用主进程打开新窗口，避免当前窗口路由或状态变化引起的闪烁
-  // @ts-ignore
-  window.api?.openIdeasHome?.()
+  appStore.goToIdeas()
+  window.location.hash = '#/ideas-home'
 }
 
 // 知识库抽屉
