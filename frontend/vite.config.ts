@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { readFileSync } from 'fs'
 
+import { VitePWA } from 'vite-plugin-pwa'
+
 // 读取 package.json 中的版本号
 const packageJson = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'))
 const version = packageJson.version
@@ -21,6 +23,38 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true
+      },
+      manifest: {
+        name: 'Novel Forge',
+        short_name: 'NovelForge',
+        description: 'Next Generation AI Novel Workspace',
+        theme_color: '#6366f1',
+        background_color: '#ffffff',
+        display: 'standalone',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
+          }
+        ]
+      }
+    }),
     {
       name: 'html-transform',
       transformIndexHtml(html) {
