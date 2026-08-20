@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Install dependencies, bypassing electron/electron-builder post-install issues
-RUN npm install --ignore-scripts --registry=https://registry.npmmirror.com
+RUN npm install --ignore-scripts
 
 # Copy the rest of the frontend source code
 COPY . .
