@@ -57,6 +57,7 @@ from . import prompts
 from . import card_types
 from . import workflows
 from . import knowledge
+from . import admin
 
 __all__ = [
     'initializer',

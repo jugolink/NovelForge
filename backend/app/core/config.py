@@ -179,6 +179,20 @@ class AppSettings(BaseSettings):
         return [origin.strip() for origin in self.cors_origins.split(",")]
 
 
+class SecuritySettings(BaseSettings):
+    """安全与鉴权配置"""
+    
+    secret_key: str = Field(default="09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7", alias="SECRET_KEY")
+    algorithm: str = Field(default="HS256", alias="ALGORITHM")
+    access_token_expire_minutes: int = Field(default=60 * 24 * 7, alias="ACCESS_TOKEN_EXPIRE_MINUTES") # 默认7天
+    
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        case_sensitive = False
+        extra = "ignore"
+
+
 class WorkflowSettings(BaseSettings):
     """工作流配置"""
     
@@ -203,6 +217,7 @@ class Settings:
         self.bootstrap = BootstrapSettings()
         self.workflow = WorkflowSettings()
         self.app = AppSettings()
+        self.security = SecuritySettings()
     
     def __repr__(self) -> str:
         return (

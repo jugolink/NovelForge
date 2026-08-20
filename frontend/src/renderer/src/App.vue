@@ -3,6 +3,7 @@ import { onMounted, onBeforeUnmount, ref, computed, defineAsyncComponent } from 
 import { storeToRefs } from 'pinia'
 import Dashboard from './views/Dashboard.vue'
 import Editor from './views/Editor.vue'
+import Login from './views/Login.vue'
 import Header from './components/common/Header.vue'
 import SettingsDialog from './components/common/SettingsDialog.vue'
 import { useAppStore } from './stores/useAppStore'
@@ -25,6 +26,13 @@ const workflowStore = useWorkflowStore()
 
 const { currentView, settingsDialogVisible } = storeToRefs(appStore)
 const { currentProject } = storeToRefs(projectStore)
+
+const isAuthenticated = ref(!!localStorage.getItem('access_token'))
+
+function handleLoginSuccess() {
+  isAuthenticated.value = true
+  initApp()
+}
 
 function handleProjectSelected(project: Project) {
   projectStore.setCurrentProject(project)
@@ -63,9 +71,7 @@ async function syncViewFromHash() {
   }
 }
 
-// 初始化主题和加载全局资源
-onMounted(async () => {
-  appStore.initTheme()
+async function initApp() {
   schemaService.loadSchemas() // Load all schemas on app startup
   syncViewFromHash()
   window.addEventListener('hashchange', syncViewFromHash)
@@ -87,6 +93,14 @@ onMounted(async () => {
       console.warn('自动检测更新失败:', error)
     }
   }
+}
+
+// 初始化主题和加载全局资源
+onMounted(async () => {
+  appStore.initTheme()
+  if (isAuthenticated.value) {
+    initApp()
+  }
 })
 
 onBeforeUnmount(() => {
@@ -95,7 +109,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="app-layout">
+  <div v-if="!isAuthenticated" class="app-layout">
+    <Login @login-success="handleLoginSuccess" />
+  </div>
+  <div v-else class="app-layout">
     <Header v-if="!isNoHeader" />
     <main class="main-content">
       <Dashboard v-if="currentView === 'dashboard'" @project-selected="handleProjectSelected" />

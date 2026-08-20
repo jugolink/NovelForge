@@ -12,4 +12,8 @@ langchain>1.0
 langchain-openai
 langchain-google-genai
 langchain-anthropic
-langchain_qwq
+langchain-qwq
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
+python-multipart

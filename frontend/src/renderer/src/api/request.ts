@@ -52,6 +52,13 @@ class HttpClient {
           }
           this.loadingCount++
         }
+        
+        // 自动携带 JWT Token
+        const token = localStorage.getItem('access_token')
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`
+        }
+        
         return config
       },
       (error) => {
@@ -107,6 +114,16 @@ class HttpClient {
           console.info('Request canceled:', error.config?.url || '')
           return Promise.reject(error)
         }
+        
+        // 处理 401 未授权情况
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem('access_token')
+          ElMessage.error('登录凭证已过期，请重新登录')
+          // 如果系统不是正在初始化过程，直接刷新页面或通过事件通知重新登录
+          window.location.reload()
+          return Promise.reject(error)
+        }
+        
         if (error.response && error.response.status === 422) {
           const validationErrors = error.response.data.detail
           if (Array.isArray(validationErrors)) {
