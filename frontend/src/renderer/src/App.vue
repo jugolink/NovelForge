@@ -115,14 +115,16 @@ onBeforeUnmount(() => {
   <div v-else class="app-layout">
     <Header v-if="!isNoHeader" />
     <main class="main-content">
-      <Dashboard v-if="currentView === 'dashboard'" @project-selected="handleProjectSelected" />
-      <Editor
-        v-else-if="currentView === 'editor' && currentProject"
-        :initial-project="currentProject"
-        @back-to-dashboard="handleBackToDashboard"
-      />
-      <IdeasHome v-else-if="currentView === 'ideas'" />
-      <CodeWorkflowEditor v-else-if="currentView === 'workflows'" />
+      <transition name="fade" mode="out-in">
+        <Dashboard v-if="currentView === 'dashboard'" @project-selected="handleProjectSelected" />
+        <Editor
+          v-else-if="currentView === 'editor' && currentProject"
+          :initial-project="currentProject"
+          @back-to-dashboard="handleBackToDashboard"
+        />
+        <IdeasHome v-else-if="currentView === 'ideas'" />
+        <CodeWorkflowEditor v-else-if="currentView === 'workflows'" />
+      </transition>
     </main>
 
     <SettingsDialog 

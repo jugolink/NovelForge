@@ -32,8 +32,8 @@ export default defineConfig({
           '<meta http-equiv="Content-Security-Policy" content="' +
           "default-src 'self'; " +
           "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " +
-          "style-src 'self' 'unsafe-inline'; " +
-          // 这里使用 connect-src *，方便本地和局域网部署；如果将来需要更严格策略可再收紧
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+          "font-src 'self' data: https://fonts.gstatic.com; " +
           "connect-src * https://api.github.com;" +
           '">'
         )

@@ -67,30 +67,41 @@ function openIdeasWorkbench() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  height: 60px;
-  background-color: var(--el-bg-color);
-  border-bottom: 1px solid var(--el-border-color);
-  flex-shrink: 0; /* Prevent header from shrinking */
+  padding: 0 24px;
+  height: 56px;
+  width: 100%;
+  background: var(--bg-color-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100;
+  transition: all 0.3s ease;
 }
 
 .logo-container.clickable {
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .logo-container.clickable:hover {
-  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 .logo-container .logo-text {
   font-size: 20px;
-  font-weight: bold;
-  color: var(--el-text-color-primary);
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
 
 .actions-container {
   display: flex;
-  gap: 15px;
+  gap: 12px;
+  align-items: center;
 }
 </style> 

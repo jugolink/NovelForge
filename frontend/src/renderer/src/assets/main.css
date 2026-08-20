@@ -1,27 +1,38 @@
 @import './base.css';
 
 :root {
-  /* Primary Color - Element Plus Default */
-  --primary-color: #409EFF;
-  --primary-gradient: linear-gradient(135deg, #409EFF 0%, #53a8ff 100%);
-  --secondary-color: #67C23A;
+  /* Primary Color - Indigo Premium */
+  --primary-color: #6366f1;
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --secondary-color: #10b981;
 
   --bg-color: #f8fafc;
-  --bg-color-glass: rgba(255, 255, 255, 0.85);
+  --bg-color-glass: rgba(255, 255, 255, 0.7);
 
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
   --text-muted: #94a3b8;
 
   --border-color: #e2e8f0;
-  --border-radius-sm: 6px;
-  --border-radius-md: 10px;
-  --border-radius-lg: 16px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  --shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  
+  /* Element Plus Global Overrides */
+  --el-color-primary: var(--primary-color);
+  --el-border-radius-base: var(--border-radius-sm);
+  --el-border-radius-small: 6px;
+  --el-border-radius-round: 24px;
+}
+
+html.dark {
+  --bg-color-glass: rgba(15, 23, 42, 0.65);
+  --border-color: rgba(255, 255, 255, 0.1);
 }
 
 body {
@@ -49,9 +60,31 @@ body {
 /* Glassmorphism Utilities */
 .glass {
   background: var(--bg-color-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Animations */
+.hover-scale {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 /* Scrollbar Styling */
@@ -73,16 +106,37 @@ body {
   background: #94a3b8;
 }
 
-/* Element Plus Overrides for Premium Feel */
 .el-button--primary {
-  background: var(--primary-color) !important;
-  border-color: var(--primary-color) !important;
+  background: var(--primary-gradient) !important;
+  border: none !important;
   color: white !important;
   font-weight: 500;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  transition: all 0.3s ease;
 }
 
 .el-button--primary:hover {
-  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+  filter: brightness(1.05);
+}
+
+.el-card {
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.el-card:hover {
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* Serif font for creative content */
+.editor-text,
+.novel-content {
+  font-family: 'Lora', 'Noto Serif SC', serif;
+  line-height: 1.8;
+  color: var(--text-primary);
 }
 
 .el-input__wrapper,
