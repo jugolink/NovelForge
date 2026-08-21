@@ -11,6 +11,9 @@ services:
     environment:
       - NOVELFORGE_DB_PATH=/app/data/novelforge.db
     restart: unless-stopped
+    # 💡 打上允许更新标签（全局 Watchtower 扫描到该标签才会自动拉取更新）
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
 
   frontend:
     image: evekgolden/novelforge-frontend:latest
@@ -23,13 +26,5 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
-
-  watchtower:
-    image: containrrr/watchtower
-    restart: always
-    environment:
-      - DOCKER_API_VERSION=1.41
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    # 每 24 小时检查一次前后端容器，并自动清理旧镜像
-    command: --interval 86400 --cleanup novelforge-backend novelforge-frontend
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"

@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: novelforge-backend-dev
+    volumes:
+      # 将本地代码映射到容器内，支持热更新
+      - ./backend:/app
+      - ./data:/app/data
+    environment:
+      - NOVELFORGE_DB_PATH=/app/data/novelforge.db
+    ports:
+      - "20489:20489"
+    # 使用 --reload 开启后端热更新
+    command: uvicorn main:app --host 0.0.0.0 --port 20489 --reload
+    restart: unless-stopped
+
+  frontend:
+    image: node:20
+    container_name: novelforge-frontend-dev
+    working_dir: /app
+    volumes:
+      # 将前端代码映射到容器内
+      - ./frontend:/app
+      # 防止本地 node_modules 覆盖容器环境或反之
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      # 告诉 Vite 将 /api 和 /imgs 代理到后端容器
+      - VITE_API_PROXY_TARGET=http://backend:20489
+    # 自动安装依赖并启动前端开发服务器
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - backend
+    restart: unless-stopped
