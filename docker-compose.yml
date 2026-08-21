@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: novelforge-backend
     volumes:
-      - novelforge-data:/app/data
+      - ./data:/app/data
     environment:
       - NOVELFORGE_DB_PATH=/app/data/novelforge.db
     restart: unless-stopped
@@ -33,6 +33,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     # 每 24 小时检查一次前后端容器，并自动清理旧镜像
     command: --interval 86400 --cleanup novelforge-backend novelforge-frontend
-
-volumes:
-  novelforge-data:
